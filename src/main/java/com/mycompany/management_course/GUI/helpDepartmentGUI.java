@@ -5,10 +5,11 @@
 package com.mycompany.management_course.GUI;
 
 import com.mycompany.management_course.DAL.Department;
-import com.mycompany.management_course.BUS.DepartmentBUS;
+import com.mycompany.management_course.BLL.DepartmentBLL;
 import java.util.ArrayList;
 import java.util.Vector;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -27,8 +28,9 @@ public class helpDepartmentGUI extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         loadAllDepartment();
     }
+
     public helpDepartmentGUI() {
-        
+
         initComponents();
         this.pack();
         this.setLocationRelativeTo(null);
@@ -49,7 +51,7 @@ public class helpDepartmentGUI extends javax.swing.JFrame {
         jSeparator1 = new javax.swing.JSeparator();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        tableDepHelper = new javax.swing.JTable();
+        tableDepartHelp = new javax.swing.JTable();
         jPanel12 = new javax.swing.JPanel();
         txtSearch = new javax.swing.JTextField();
         btnSearchDe = new javax.swing.JButton();
@@ -91,11 +93,11 @@ public class helpDepartmentGUI extends javax.swing.JFrame {
         jScrollPane2.setBackground(new java.awt.Color(23, 49, 74));
         jScrollPane2.setForeground(new java.awt.Color(255, 255, 255));
 
-        tableDepHelper.setAutoCreateRowSorter(true);
-        tableDepHelper.setBackground(new java.awt.Color(23, 49, 74));
-        tableDepHelper.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
-        tableDepHelper.setForeground(new java.awt.Color(255, 255, 255));
-        tableDepHelper.setModel(new javax.swing.table.DefaultTableModel(
+        tableDepartHelp.setAutoCreateRowSorter(true);
+        tableDepartHelp.setBackground(new java.awt.Color(23, 49, 74));
+        tableDepartHelp.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        tableDepartHelp.setForeground(new java.awt.Color(255, 255, 255));
+        tableDepartHelp.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
                 {null, null, null, null, null},
@@ -114,21 +116,24 @@ public class helpDepartmentGUI extends javax.swing.JFrame {
                 return types [columnIndex];
             }
         });
-        tableDepHelper.setFillsViewportHeight(true);
-        tableDepHelper.setGridColor(new java.awt.Color(255, 255, 255));
-        tableDepHelper.setSelectionBackground(new java.awt.Color(43, 79, 112));
-        tableDepHelper.setSelectionForeground(new java.awt.Color(255, 255, 255));
-        tableDepHelper.setShowGrid(true);
-        tableDepHelper.addMouseListener(new java.awt.event.MouseAdapter() {
+        tableDepartHelp.setFillsViewportHeight(true);
+        tableDepartHelp.setGridColor(new java.awt.Color(255, 255, 255));
+        tableDepartHelp.setSelectionBackground(new java.awt.Color(43, 79, 112));
+        tableDepartHelp.setSelectionForeground(new java.awt.Color(255, 255, 255));
+        tableDepartHelp.setShowGrid(true);
+        tableDepartHelp.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tableDepHelperMouseClicked(evt);
+                tableDepartHelpMouseClicked(evt);
             }
         });
-        jScrollPane2.setViewportView(tableDepHelper);
+        jScrollPane2.setViewportView(tableDepartHelp);
 
         jPanel12.setBackground(new java.awt.Color(34, 63, 90));
 
         btnSearchDe.setBackground(new java.awt.Color(0, 117, 217));
+        btnSearchDe.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
+        btnSearchDe.setForeground(new java.awt.Color(255, 255, 255));
+        btnSearchDe.setText("Search");
         btnSearchDe.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 1, true));
         btnSearchDe.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -137,6 +142,7 @@ public class helpDepartmentGUI extends javax.swing.JFrame {
         });
 
         btnReload.setBackground(new java.awt.Color(0, 117, 217));
+        btnReload.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
         btnReload.setForeground(new java.awt.Color(255, 255, 255));
         btnReload.setText("Reload");
         btnReload.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 1, true));
@@ -153,8 +159,8 @@ public class helpDepartmentGUI extends javax.swing.JFrame {
             .addGroup(jPanel12Layout.createSequentialGroup()
                 .addGap(41, 41, 41)
                 .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
-                .addComponent(btnSearchDe, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnSearchDe, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnReload, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -178,13 +184,13 @@ public class helpDepartmentGUI extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(51, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(299, 299, 299)
-                        .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 654, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(52, Short.MAX_VALUE))
+                .addContainerGap(338, Short.MAX_VALUE)
+                .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(39, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(48, 48, 48)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 654, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -192,9 +198,9 @@ public class helpDepartmentGUI extends javax.swing.JFrame {
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 365, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(46, 46, 46))
+                .addGap(40, 40, 40))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -211,20 +217,25 @@ public class helpDepartmentGUI extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void tableDepHelperMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableDepHelperMouseClicked
-        int i = tableDepHelper.getSelectedRow();
+    private void tableDepartHelpMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableDepartHelpMouseClicked
+        int i = tableDepartHelp.getSelectedRow();
         if (i != -1) {
             //CourseGUI courseGUI = new CourseGUI();
-            String department = tableDepHelper.getModel().getValueAt(i, 0).toString() + "-" + tableDepHelper.getModel().getValueAt(i, 1).toString();
+            String department = tableDepartHelp.getModel().getValueAt(i, 0).toString() + "-" + tableDepartHelp.getModel().getValueAt(i, 1).toString();
             previous.setDepartment(department);
             this.setVisible(false);
         }
 
-    }//GEN-LAST:event_tableDepHelperMouseClicked
+    }//GEN-LAST:event_tableDepartHelpMouseClicked
 
     private void btnSearchDeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSearchDeMouseClicked
-        depList = depBUS.finDepartmentByName(txtSearch.getText());
-        setValueToTable(depList);
+        String name = txtSearch.getText();
+        if (!name.trim().isEmpty()) {
+            depList = depBUS.finDepartmentByName(txtSearch.getText());
+            setValueToTable(depList);
+        } else {
+            JOptionPane.showMessageDialog(this, "Please enter your keyword first", "Notify", JOptionPane.INFORMATION_MESSAGE);
+        }
     }//GEN-LAST:event_btnSearchDeMouseClicked
 
     private void btnReloadMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnReloadMouseClicked
@@ -232,7 +243,7 @@ public class helpDepartmentGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_btnReloadMouseClicked
 
     public void setValueToTable(ArrayList<Department> cateList) {
-        model = (DefaultTableModel) tableDepHelper.getModel();
+        model = (DefaultTableModel) tableDepartHelp.getModel();
         model.setRowCount(0);
         for (Department dep : depList) {
             Vector row = new Vector();
@@ -244,7 +255,7 @@ public class helpDepartmentGUI extends javax.swing.JFrame {
             row.add(dep.getAdministrator());
             model.addRow(row);
         }
-        tableDepHelper.setModel(model);
+        tableDepartHelp.setModel(model);
         customDesign();
     }
 
@@ -254,10 +265,9 @@ public class helpDepartmentGUI extends javax.swing.JFrame {
     }
 
     public void customDesign() {
-        tableDepHelper.setRowHeight(30);
+        tableDepartHelp.setRowHeight(30);
 
     }
-    
 
     /**
      * @param args the command line arguments
@@ -303,11 +313,11 @@ public class helpDepartmentGUI extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTable tableDepHelper;
+    private javax.swing.JTable tableDepartHelp;
     private javax.swing.JTextField txtSearch;
     // End of variables declaration//GEN-END:variables
     DefaultTableModel model;
     ArrayList<Department> depList = new ArrayList<>();
-    DepartmentBUS depBUS = new DepartmentBUS();
+    DepartmentBLL depBUS = new DepartmentBLL();
     private CourseGUI previous;
 }

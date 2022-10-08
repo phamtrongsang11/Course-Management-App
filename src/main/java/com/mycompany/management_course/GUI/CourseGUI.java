@@ -4,12 +4,12 @@
  */
 package com.mycompany.management_course.GUI;
 
-import com.mycompany.management_course.BUS.CourseBUS;
+import com.mycompany.management_course.BLL.CourseBLL;
 import com.mycompany.management_course.DAL.Department;
-import com.mycompany.management_course.BUS.DepartmentBUS;
-import com.mycompany.management_course.BUS.OnlineBUS;
+import com.mycompany.management_course.BLL.DepartmentBLL;
+import com.mycompany.management_course.BLL.OnlineBLL;
 import com.mycompany.management_course.DAL.OnlineCourse;
-import com.mycompany.management_course.BUS.OnsiteBUS;
+import com.mycompany.management_course.BLL.OnsiteBLL;
 import com.mycompany.management_course.DAL.OnsiteCourse;
 import java.sql.SQLException;
 import java.text.DateFormat;
@@ -41,13 +41,15 @@ public class CourseGUI extends javax.swing.JFrame {
     public CourseGUI(JFrame parent) {
         this.parent = parent;
         customInit();
-        loadCourseByType(page);
+
+        loadCourseByType();
         //getCourseByPage(page);
     }
 
     public CourseGUI() {
         customInit();
-        loadCourseByType(page);
+
+        loadCourseByType();
         //getCourseByPage(page);
     }
 
@@ -84,7 +86,7 @@ public class CourseGUI extends javax.swing.JFrame {
         jPanel11 = new javax.swing.JPanel();
         txtDepartment = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
-        btnHelp = new javax.swing.JButton();
+        btnDepartHelp = new javax.swing.JButton();
         jPanel12 = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
         radioOnsite = new javax.swing.JRadioButton();
@@ -243,7 +245,7 @@ public class CourseGUI extends javax.swing.JFrame {
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(btnReload, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnReload, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnEdit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnDel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnAdd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -254,15 +256,15 @@ public class CourseGUI extends javax.swing.JFrame {
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(12, 12, 12)
-                .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(12, 12, 12)
-                .addComponent(btnDel, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnDel, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnReset, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnReset, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnReload, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnReload, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -335,14 +337,14 @@ public class CourseGUI extends javax.swing.JFrame {
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText("Department");
 
-        btnHelp.setBackground(new java.awt.Color(0, 117, 217));
-        btnHelp.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
-        btnHelp.setForeground(new java.awt.Color(255, 255, 255));
-        btnHelp.setText("...");
-        btnHelp.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 1, true));
-        btnHelp.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnDepartHelp.setBackground(new java.awt.Color(0, 117, 217));
+        btnDepartHelp.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
+        btnDepartHelp.setForeground(new java.awt.Color(255, 255, 255));
+        btnDepartHelp.setText("...");
+        btnDepartHelp.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 1, true));
+        btnDepartHelp.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnHelpMouseClicked(evt);
+                btnDepartHelpMouseClicked(evt);
             }
         });
 
@@ -356,7 +358,7 @@ public class CourseGUI extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(txtDepartment, javax.swing.GroupLayout.DEFAULT_SIZE, 138, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnHelp, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnDepartHelp, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         jPanel11Layout.setVerticalGroup(
@@ -366,11 +368,11 @@ public class CourseGUI extends javax.swing.JFrame {
                 .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
                     .addComponent(txtDepartment, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnHelp, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnDepartHelp, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
-        jPanel11Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnHelp, txtDepartment});
+        jPanel11Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnDepartHelp, txtDepartment});
 
         jPanel12.setBackground(new java.awt.Color(23, 49, 74));
 
@@ -868,11 +870,11 @@ public class CourseGUI extends javax.swing.JFrame {
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnPrev, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnPrev, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lbPage)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnNext, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnNext, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
@@ -929,28 +931,22 @@ public class CourseGUI extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(298, 298, 298))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane2)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addComponent(jPanel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE)))
-                        .addContainerGap())
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(336, 336, 336))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 742, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap())))))
+                        .addComponent(jPanel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -978,7 +974,7 @@ public class CourseGUI extends javax.swing.JFrame {
                 .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(pCourseLayout.createSequentialGroup()
                 .addGap(33, 33, 33)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 754, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 764, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         pCourseLayout.setVerticalGroup(
             pCourseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1037,112 +1033,120 @@ public class CourseGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_tableCourseMouseClicked
 
     private void btnAddMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAddMouseClicked
-        try {
-            int id = courseBUS.getNewID();
-            String[] department = txtDepartment.getText().split("-");
-            int departmentID = Integer.parseInt(department[0]);
 
-            if (radioOnsite.isSelected()) {
-                String time = getTime(timePicker.getSelectedTime());
-                String days = getDaysChecked();
-                OnsiteCourse ons = new OnsiteCourse(id, txtTitle.getText(), Integer.parseInt(txtCredits.getText()), departmentID, textLocation.getText(), days, time);
+        if (this.checkEmptyInput()) {
+            try {
+                int id = courseBUS.getNewID();
+                String[] department = txtDepartment.getText().split("-");
+                int departmentID = Integer.parseInt(department[0]);
 
-                if (onsBUS.insertOnsite(ons) > 0) {
-                    JOptionPane.showMessageDialog(this, "Inserted Successfully", "Notify", JOptionPane.INFORMATION_MESSAGE);
-                    reset();
-                    loadCourseByType(page);
+                if (radioOnsite.isSelected()) {
+                    String time = getTime(timePicker.getSelectedTime());
+                    String days = getDaysChecked();
+                    OnsiteCourse ons = new OnsiteCourse(id, txtTitle.getText(), Integer.parseInt(txtCredits.getText()), departmentID, textLocation.getText(), days, time);
+
+                    if (onsBUS.insertOnsite(ons) > 0) {
+                        JOptionPane.showMessageDialog(this, "Inserted Successfully", "Notify", JOptionPane.INFORMATION_MESSAGE);
+                        reset();
+                        loadCourseByType();
+                    }
+
+                } else {
+                    OnlineCourse onl = new OnlineCourse(id, txtTitle.getText(), Integer.parseInt(txtCredits.getText()), departmentID, txtUrl.getText());
+
+                    if (onlBUS.insertOnline(onl) > 0) {
+                        JOptionPane.showMessageDialog(this, "Inserted Successfully", "Notify", JOptionPane.INFORMATION_MESSAGE);
+                        reset();
+                        loadCourseByType();
+                    }
+
                 }
+            } catch (Exception ex) {
 
-            } else {
-                OnlineCourse onl = new OnlineCourse(id, txtTitle.getText(), Integer.parseInt(txtCredits.getText()), departmentID, txtUrl.getText());
-
-                if (onlBUS.insertOnline(onl) > 0) {
-                    JOptionPane.showMessageDialog(this, "Inserted Successfully", "Notify", JOptionPane.INFORMATION_MESSAGE);
-                    reset();
-                    loadCourseByType(page);
-                }
-
+                JOptionPane.showMessageDialog(this, "Inserted Fail, Error: " + ex.getMessage(), "Notify", JOptionPane.INFORMATION_MESSAGE);
             }
-        } catch (SQLException ex) {
-            Logger.getLogger(CourseGUI.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(this, "Inserted Fail: " + ex, "Notify", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(this, "Some of input is empty. Please check again! ", "Notify", JOptionPane.INFORMATION_MESSAGE);
         }
-
     }//GEN-LAST:event_btnAddMouseClicked
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_btnAddActionPerformed
 
     private void btnEditMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEditMouseClicked
         int i = tableCourse.getSelectedRow();
         if (i != -1) {
-            try {
-                int id = Integer.parseInt(tableCourse.getModel().getValueAt(i, 0).toString());
-                String[] department = txtDepartment.getText().split("-");
-                int departmentID = Integer.parseInt(department[0]);
+            if (this.checkEmptyInput()) {
+                try {
 
-                String type = "";
-                if (jcbType.getSelectedItem().equals("Onsite")) {
-                    type += "Onsite";
-                } else {
-                    type += "Online";
+                    int id = Integer.parseInt(tableCourse.getModel().getValueAt(i, 0).toString());
+                    String[] department = txtDepartment.getText().split("-");
+                    int departmentID = Integer.parseInt(department[0]);
+
+                    String type = "";
+                    if (jcbType.getSelectedItem().equals("Onsite")) {
+                        type += "Onsite";
+                    } else {
+                        type += "Online";
+                    }
+
+                    switch (type) {
+                        case "Onsite":
+                            if (radioOnsite.isSelected()) {
+                                String days = getDaysChecked();
+                                String time = getTime(timePicker.getSelectedTime());
+                                OnsiteCourse ons = new OnsiteCourse(id, txtTitle.getText(), Integer.parseInt(txtCredits.getText()), departmentID, textLocation.getText(), days, time);
+                                System.out.println(ons);
+                                if (onsBUS.updateOnsite(ons) > 0) {
+                                    JOptionPane.showMessageDialog(this, "Updated Successfully", "Notify", JOptionPane.INFORMATION_MESSAGE);
+                                    reset();
+                                    loadCourseByType();
+                                }
+                            } else {
+                                OnlineCourse onl = new OnlineCourse(id, txtTitle.getText(), Integer.parseInt(txtCredits.getText()), departmentID, txtUrl.getText());
+
+                                if (onsBUS.deleteOnsite(id) > 0 && onlBUS.insertOnline(onl) > 0) {
+
+                                    JOptionPane.showMessageDialog(this, "Updated Successfully", "Notify", JOptionPane.INFORMATION_MESSAGE);
+                                    reset();
+                                    loadCourseByType();
+                                }
+                            }
+                            break;
+
+                        case "Online":
+                            if (radioOnline.isSelected()) {
+                                OnlineCourse onl = new OnlineCourse(id, txtTitle.getText(), Integer.parseInt(txtCredits.getText()), departmentID, txtUrl.getText());
+
+                                if (onlBUS.updateOnline(onl) > 0) {
+                                    JOptionPane.showMessageDialog(this, "Updated Successfully", "Notify", JOptionPane.INFORMATION_MESSAGE);
+                                    reset();
+                                    loadCourseByType();
+                                }
+
+                            } else {
+                                String days = getDaysChecked();
+                                String time = getTime(timePicker.getSelectedTime());
+                                OnsiteCourse ons = new OnsiteCourse(id, txtTitle.getText(), Integer.parseInt(txtCredits.getText()), departmentID, textLocation.getText(), days, time);
+
+                                if (onlBUS.deleteOnline(id) > 0 && onsBUS.insertOnsite(ons) > 0) {
+                                    JOptionPane.showMessageDialog(this, "Updated Successfully", "Notify", JOptionPane.INFORMATION_MESSAGE);
+                                    reset();
+                                    loadCourseByType();
+                                }
+
+                            }
+                            break;
+                    }
+
+                } catch (Exception ex) {
+
+                    JOptionPane.showMessageDialog(this, "Updated Fail, Error: " + ex.getMessage(), "Notify", JOptionPane.INFORMATION_MESSAGE);
                 }
-
-                switch (type) {
-                    case "Onsite":
-                        if (radioOnsite.isSelected()) {
-                            String days = getDaysChecked();
-                            String time = getTime(timePicker.getSelectedTime());
-                            OnsiteCourse ons = new OnsiteCourse(id, txtTitle.getText(), Integer.parseInt(txtCredits.getText()), departmentID, textLocation.getText(), days, time);
-                            System.out.println(ons);
-                            if (onsBUS.updateOnsite(ons) > 0) {
-                                JOptionPane.showMessageDialog(this, "Updated Successfully", "Notify", JOptionPane.INFORMATION_MESSAGE);
-                                reset();
-                                loadCourseByType(page);
-                            }
-                        } else {
-                            OnlineCourse onl = new OnlineCourse(id, txtTitle.getText(), Integer.parseInt(txtCredits.getText()), departmentID, txtUrl.getText());
-
-                            if (onsBUS.deleteOnsite(id) > 0 && onlBUS.insertOnline(onl) > 0) {
-
-                                JOptionPane.showMessageDialog(this, "Updated Successfully", "Notify", JOptionPane.INFORMATION_MESSAGE);
-                                reset();
-                                loadCourseByType(page);
-                            }
-                        }
-                        break;
-
-                    case "Online":
-                        if (radioOnline.isSelected()) {
-                            OnlineCourse onl = new OnlineCourse(id, txtTitle.getText(), Integer.parseInt(txtCredits.getText()), departmentID, txtUrl.getText());
-
-                            if (onlBUS.updateOnline(onl) > 0) {
-                                JOptionPane.showMessageDialog(this, "Updated Successfully", "Notify", JOptionPane.INFORMATION_MESSAGE);
-                                reset();
-                                loadCourseByType(page);
-                            }
-
-                        } else {
-                            String days = getDaysChecked();
-                            String time = getTime(timePicker.getSelectedTime());
-                            OnsiteCourse ons = new OnsiteCourse(id, txtTitle.getText(), Integer.parseInt(txtCredits.getText()), departmentID, textLocation.getText(), days, time);
-
-                            if (onlBUS.deleteOnline(id) > 0 && onsBUS.insertOnsite(ons) > 0) {
-                                JOptionPane.showMessageDialog(this, "Updated Successfully", "Notify", JOptionPane.INFORMATION_MESSAGE);
-                                reset();
-                                loadCourseByType(page);
-                            }
-
-                        }
-                        break;
-                }
-
-            } catch (SQLException ex) {
-                Logger.getLogger(CourseGUI.class.getName()).log(Level.SEVERE, null, ex);
-                JOptionPane.showMessageDialog(this, "Inserted Fail: " + ex, "Notify", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(this, "Some of input is empty. Please check again! ", "Notify", JOptionPane.INFORMATION_MESSAGE);
             }
-
         } else {
             JOptionPane.showMessageDialog(this, "Please, choose record you want to edit first", "Notify", JOptionPane.INFORMATION_MESSAGE);
         }
@@ -1159,20 +1163,20 @@ public class CourseGUI extends javax.swing.JFrame {
 
                         if (onsBUS.deleteOnsite(id) > 0) {
                             JOptionPane.showMessageDialog(this, "Deleted Successfully", "Notify", JOptionPane.INFORMATION_MESSAGE);
-                            loadCourseByType(page);
+                            loadCourseByType();
                         }
 
                     } else {
 
                         if (onlBUS.deleteOnline(id) > 0) {
                             JOptionPane.showMessageDialog(this, "Deleted Successfully", "Notify", JOptionPane.INFORMATION_MESSAGE);
-                            loadCourseByType(page);
+                            loadCourseByType();
                         }
 
                     }
-                } catch (SQLException ex) {
-                    JOptionPane.showMessageDialog(this, "Deleted Fail: " + ex, "Notify", JOptionPane.INFORMATION_MESSAGE);
-                    Logger.getLogger(CourseGUI.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(this, "Delete Fail, Error: " + ex.getMessage(), "Notify", JOptionPane.INFORMATION_MESSAGE);
+
                 }
 
             }
@@ -1189,7 +1193,8 @@ public class CourseGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_btnDelActionPerformed
 
     private void btnReloadMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnReloadMouseClicked
-        loadCourseByType(page);
+        resetNumPage();
+        loadCourseByType();
     }//GEN-LAST:event_btnReloadMouseClicked
 
     private void btnResetMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnResetMouseClicked
@@ -1236,20 +1241,32 @@ public class CourseGUI extends javax.swing.JFrame {
         resetOns();
     }//GEN-LAST:event_radioOnlineMouseClicked
 
-    private void btnHelpMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnHelpMouseClicked
+    private void btnDepartHelpMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDepartHelpMouseClicked
         new helpDepartmentGUI(this).setVisible(true);
-    }//GEN-LAST:event_btnHelpMouseClicked
+    }//GEN-LAST:event_btnDepartHelpMouseClicked
 
     private void btnSearchMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSearchMouseClicked
+        String name = txtSearch.getText();
+        if (!name.trim().isEmpty()) {
+            try {
+                if (jcbType.getSelectedItem().equals("Onsite")) {
+                    onsList = onsBUS.findOnsite(txtSearch.getText());
 
-        try {
-            if (jcbType.getSelectedItem().equals("Onsite")) {
-                setValueOnsiteToTable(onsBUS.findOnsite(txtSearch.getText()));
-            } else {
-                setValueOnlineToTable(onlBUS.findOnline(txtSearch.getText()));
+                } else {
+                    onlList = onlBUS.findOnline(txtSearch.getText());
+
+                }
+
+                resetNumPage();
+
+                setCourseByNumPage();
+
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(this, "Error: " + ex.getMessage(), "Notify", JOptionPane.INFORMATION_MESSAGE);
             }
-        } catch (SQLException ex) {
-            Logger.getLogger(CourseGUI.class.getName()).log(Level.SEVERE, null, ex);
+            txtSearch.setText("");
+        } else {
+            JOptionPane.showMessageDialog(this, "Please enter your keyword first", "Notify", JOptionPane.INFORMATION_MESSAGE);
         }
 
 
@@ -1273,7 +1290,7 @@ public class CourseGUI extends javax.swing.JFrame {
         } else {
             page -= 1;
             lbPage.setText(page + "");
-            loadCourseByType(page);
+            setCourseByNumPage();
 
         }
 
@@ -1282,19 +1299,20 @@ public class CourseGUI extends javax.swing.JFrame {
     private void btnNextMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnNextMouseClicked
         String type = jcbType.getSelectedItem().toString();
 
-        if ((type.equals("Onsite") && page + 1 > this.getMaxPage(onsBUS.getSizeList())) || (type.equals("Online") && page + 1 > this.getMaxPage(onlBUS.getSizeList()))) {
+        if ((type.equals("Onsite") && page + 1 > this.getMaxPage(onsList.size())) || (type.equals("Online") && page + 1 > this.getMaxPage(onlList.size()))) {
             JOptionPane.showMessageDialog(this, "You can't move to the next page because this is last page", "Notify", JOptionPane.INFORMATION_MESSAGE);
         } else {
             page += 1;
             lbPage.setText(page + "");
-            loadCourseByType(page);
+            setCourseByNumPage();
         }
 
 
     }//GEN-LAST:event_btnNextMouseClicked
 
     private void jcbTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbTypeActionPerformed
-        loadCourseByType(page);
+        resetNumPage();
+        loadCourseByType();
 
     }//GEN-LAST:event_jcbTypeActionPerformed
 
@@ -1305,6 +1323,11 @@ public class CourseGUI extends javax.swing.JFrame {
     private void btnPrevActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrevActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnPrevActionPerformed
+
+    public void resetNumPage() {
+        page = 1;
+        lbPage.setText(page + "");
+    }
 
     public int getMaxPage(int size) {
         int maxPage = 0;
@@ -1511,24 +1534,56 @@ public class CourseGUI extends javax.swing.JFrame {
         return model;
     }
 
-    public void loadCourseByType(int page) {
-
+    public void readCourseByType() {
         try {
             if (jcbType.getSelectedItem().equals("Onsite")) {
-                setValueOnsiteToTable(onsBUS.ReadOnsiteByNumPage(page, numRecord));
+                onsList = onsBUS.readAllOnsiteCourse();
             } else {
-                setValueOnlineToTable(onlBUS.ReadOnlineByNumPage(page, numRecord));
+                onlList = onlBUS.readAllOnlineCourse();
             }
         } catch (SQLException ex) {
             Logger.getLogger(CourseGUI.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    public void setCourseByNumPage() {
+        try {
+            if (jcbType.getSelectedItem().equals("Onsite")) {
+                setValueOnsiteToTable(onsBUS.ReadOnsiteByNumPage(onsList, page, numRecord));
+            } else {
+                setValueOnlineToTable(onlBUS.ReadOnlineByNumPage(onlList, page, numRecord));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(CourseGUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void loadCourseByType() {
+
+        readCourseByType();
+        setCourseByNumPage();
 
     }
 
-    public void getCourseByPage(int page) {
-        //courseList = courseBUS.ReadCourseByNumPage(page, numRecord);
-        //getOnsAndOnlList(courseList);
-        //setValueToTable(courseList, onsList, onlList);
+    public boolean checkEmptyInput() {
+        if (txtTitle.getText().trim().isEmpty() || txtDepartment.getText().trim().isEmpty() || txtCredits.getText().trim().isEmpty()) {
+
+            return false;
+        }
+        if (radioOnsite.isSelected()) {
+
+            if (txtTime.getText().trim().isEmpty() || getDaysChecked().isEmpty() || textLocation.getText().trim().isEmpty()) {
+
+                return false;
+            }
+
+        } else {
+            if (txtUrl.getText().trim().isEmpty()) {
+
+                return false;
+            }
+        }
+        return true;
     }
 
     public void customDesign(int[] widthHeaderList) {
@@ -1593,9 +1648,9 @@ public class CourseGUI extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnDel;
+    private javax.swing.JButton btnDepartHelp;
     private javax.swing.JButton btnEdit;
     private javax.swing.ButtonGroup btnGroupRadio;
-    private javax.swing.JButton btnHelp;
     private javax.swing.JButton btnNext;
     private javax.swing.JButton btnPrev;
     private javax.swing.JButton btnReload;
@@ -1657,10 +1712,10 @@ public class CourseGUI extends javax.swing.JFrame {
     private DefaultTableModel model = new DefaultTableModel();
     private ArrayList<OnsiteCourse> onsList = new ArrayList<>();
     private ArrayList<OnlineCourse> onlList = new ArrayList<>();
-    private CourseBUS courseBUS = new CourseBUS();
-    private OnsiteBUS onsBUS = new OnsiteBUS();
-    private OnlineBUS onlBUS = new OnlineBUS();
-    private DepartmentBUS depBUS = new DepartmentBUS();
+    private CourseBLL courseBUS = new CourseBLL();
+    private OnsiteBLL onsBUS = new OnsiteBLL();
+    private OnlineBLL onlBUS = new OnlineBLL();
+    private DepartmentBLL depBUS = new DepartmentBLL();
     //private int[] widthHeaderList = {50, 150, 50, 100, 100, 100, 50, 200, 200};
     private int[] widthOnsiteTable = {50, 200, 50, 200, 200, 100, 100};
     private int[] widthOnlineTable = {50, 200, 50, 200, 300};

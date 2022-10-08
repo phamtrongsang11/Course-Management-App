@@ -4,10 +4,10 @@
  */
 package com.mycompany.management_course.GUI;
 
-import com.mycompany.management_course.BUS.CourseBUS;
-import com.mycompany.management_course.BUS.PersonBUS;
+import com.mycompany.management_course.BLL.CourseBLL;
+import com.mycompany.management_course.BLL.PersonBLL;
 import com.mycompany.management_course.DAL.StudentGrade;
-import com.mycompany.management_course.BUS.StudentGradeBus;
+import com.mycompany.management_course.BLL.StudentGradeBLL;
 import com.mycompany.management_course.DAL.Course;
 import com.mycompany.management_course.DAL.Person;
 import java.sql.SQLException;
@@ -28,10 +28,12 @@ public class GradeGUI extends javax.swing.JFrame {
     /**
      * Creates new form StudentGUI
      */
-    private StudentGradeBus gradeBUS = new StudentGradeBus();
+    private StudentGradeBLL gradeBUS = new StudentGradeBLL();
     private ArrayList<StudentGrade> gradeList = new ArrayList<>();
-    private CourseBUS courseBUS = new CourseBUS();
-    private PersonBUS personBUS = new PersonBUS();
+    private CourseBLL courseBUS = new CourseBLL();
+    private PersonBLL personBUS = new PersonBLL();
+    private int page = 1;
+    private int numRecord = 7;
 
     public GradeGUI() {
         initComponents();
@@ -67,6 +69,7 @@ public class GradeGUI extends javax.swing.JFrame {
         tbGrade.setModel(model);
     }
 
+    /*
     public void loadAllGrade() {
         try {
             gradeList = gradeBUS.readStudentGrade();
@@ -74,6 +77,30 @@ public class GradeGUI extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(CourseGUI.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+     */
+    public void readGradeList() {
+        try {
+            gradeList = gradeBUS.readStudentGrade();
+        } catch (SQLException ex) {
+            Logger.getLogger(CourseGUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void setGradeByNumPage() {
+        try {
+
+            setValueToTable(gradeBUS.ReadOnsiteByNumPage(gradeList, page, numRecord));
+
+        } catch (SQLException ex) {
+            Logger.getLogger(CourseGUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void loadAllGrade() {
+        readGradeList();
+        setGradeByNumPage();
+
     }
 
     public void setCourseHelp(String name1) {
@@ -125,6 +152,10 @@ public class GradeGUI extends javax.swing.JFrame {
         jPanel10 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jcbType = new javax.swing.JComboBox<>();
+        jPanel4 = new javax.swing.JPanel();
+        btnPrev = new javax.swing.JButton();
+        btnNext = new javax.swing.JButton();
+        lbPage = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -439,7 +470,7 @@ public class GradeGUI extends javax.swing.JFrame {
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(btnReload, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnReload, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnEdit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnDel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnAdd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -450,15 +481,15 @@ public class GradeGUI extends javax.swing.JFrame {
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(12, 12, 12)
-                .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(12, 12, 12)
-                .addComponent(btnDel, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnDel, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnReset, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnReset, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnReload, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnReload, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -504,6 +535,11 @@ public class GradeGUI extends javax.swing.JFrame {
         jLabel2.setText("Type");
 
         jcbType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Course", "Student" }));
+        jcbType.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jcbTypeActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
         jPanel10.setLayout(jPanel10Layout);
@@ -569,6 +605,65 @@ public class GradeGUI extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        jPanel4.setBackground(new java.awt.Color(23, 49, 74));
+        jPanel4.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 1, true));
+        jPanel4.setForeground(new java.awt.Color(255, 255, 255));
+
+        btnPrev.setBackground(new java.awt.Color(0, 117, 217));
+        btnPrev.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnPrev.setForeground(new java.awt.Color(255, 255, 255));
+        btnPrev.setText("Prev");
+        btnPrev.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 1, true));
+        btnPrev.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnPrevMouseClicked(evt);
+            }
+        });
+        btnPrev.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPrevActionPerformed(evt);
+            }
+        });
+
+        btnNext.setBackground(new java.awt.Color(0, 117, 217));
+        btnNext.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnNext.setForeground(new java.awt.Color(255, 255, 255));
+        btnNext.setText("Next");
+        btnNext.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 1, true));
+        btnNext.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnNextMouseClicked(evt);
+            }
+        });
+
+        lbPage.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lbPage.setForeground(new java.awt.Color(255, 255, 255));
+        lbPage.setText("1");
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnPrev, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lbPage)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnNext, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnPrev, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnNext, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lbPage))
+                .addContainerGap())
+        );
+
         javax.swing.GroupLayout pGradeLayout = new javax.swing.GroupLayout(pGrade);
         pGrade.setLayout(pGradeLayout);
         pGradeLayout.setHorizontalGroup(
@@ -587,6 +682,9 @@ public class GradeGUI extends javax.swing.JFrame {
                         .addContainerGap()
                         .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pGradeLayout.createSequentialGroup()
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(324, 324, 324))
         );
         pGradeLayout.setVerticalGroup(
             pGradeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -597,8 +695,10 @@ public class GradeGUI extends javax.swing.JFrame {
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jPanel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -616,7 +716,7 @@ public class GradeGUI extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(18, 18, 18)
                 .addComponent(pGrade, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(116, 116, 116))
+                .addGap(63, 63, 63))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -630,7 +730,9 @@ public class GradeGUI extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 747, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 719, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 6, Short.MAX_VALUE))
         );
 
         pack();
@@ -671,8 +773,8 @@ public class GradeGUI extends javax.swing.JFrame {
             } else {
                 JOptionPane.showMessageDialog(this, "Error, Inserted Fail", "Notify", JOptionPane.INFORMATION_MESSAGE);
             }
-        } catch (SQLException ex) {
-            Logger.getLogger(CourseGUI.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Error: " + ex.getMessage(), "Notify", JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_btnAddMouseClicked
 
@@ -701,8 +803,8 @@ public class GradeGUI extends javax.swing.JFrame {
                 } else {
                     JOptionPane.showMessageDialog(this, "Error, Update Fail", "Notify", JOptionPane.INFORMATION_MESSAGE);
                 }
-            } catch (SQLException ex) {
-                Logger.getLogger(CourseGUI.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(this, "Error" + ex.getMessage(), "Notify", JOptionPane.INFORMATION_MESSAGE);
             }
         } else {
             JOptionPane.showMessageDialog(this, "Error, Plese select a record you want to update in table first", "Notify", JOptionPane.INFORMATION_MESSAGE);
@@ -741,6 +843,7 @@ public class GradeGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_btnDelActionPerformed
 
     private void btnReloadMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnReloadMouseClicked
+        resetNumPage();
         loadAllGrade();
     }//GEN-LAST:event_btnReloadMouseClicked
 
@@ -753,21 +856,24 @@ public class GradeGUI extends javax.swing.JFrame {
         try {
             String name = txtSearch.getText();
             if (!name.trim().isEmpty()) {
+
                 if (jcbType.getSelectedItem().equals("Course")) {
                     gradeList = gradeBUS.findGradeByCourse(name);
-                    this.setValueToTable(gradeList);
+
                 } else {
 
                     gradeList = gradeBUS.findGradeByStudent(name);
-                    this.setValueToTable(gradeList);
 
                 }
+                resetNumPage();
+                setGradeByNumPage();
 
             } else {
                 JOptionPane.showMessageDialog(this, "Please enter your keyword first", "Notify", JOptionPane.INFORMATION_MESSAGE);
             }
+            txtSearch.setText("");
         } catch (SQLException ex) {
-            Logger.getLogger(GradeGUI.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this, "Search fail, Error: " + ex.getMessage(), "Notify", JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_btnSearchMouseClicked
 
@@ -780,6 +886,49 @@ public class GradeGUI extends javax.swing.JFrame {
 
         }
     }//GEN-LAST:event_tbGradeMouseClicked
+
+    private void jcbTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbTypeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jcbTypeActionPerformed
+
+    private void btnPrevMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPrevMouseClicked
+
+        if (page == 1) {
+            JOptionPane.showMessageDialog(this, "You can't move to the previous page because this is first page", "Notify", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            page -= 1;
+            lbPage.setText(page + "");
+            setGradeByNumPage();
+
+        }
+    }//GEN-LAST:event_btnPrevMouseClicked
+
+    private void btnPrevActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrevActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnPrevActionPerformed
+
+    private void btnNextMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnNextMouseClicked
+        String type = jcbType.getSelectedItem().toString();
+
+        if (page + 1 > this.getMaxPage(gradeList.size())) {
+            JOptionPane.showMessageDialog(this, "You can't move to the next page because this is last page", "Notify", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            page += 1;
+            lbPage.setText(page + "");
+            setGradeByNumPage();
+        }
+
+    }//GEN-LAST:event_btnNextMouseClicked
+
+    public void resetNumPage() {
+        page = 1;
+        lbPage.setText(page + "");
+    }
+
+    public int getMaxPage(int size) {
+        int maxPage = 0;
+        return size % numRecord != 0 ? (maxPage = size / numRecord + 1) : (maxPage = size / numRecord);
+    }
 
     public JPanel getPanel() {
         return pGrade;
@@ -833,6 +982,8 @@ public class GradeGUI extends javax.swing.JFrame {
     private javax.swing.JButton btnCourse1;
     private javax.swing.JButton btnDel;
     private javax.swing.JButton btnEdit;
+    private javax.swing.JButton btnNext;
+    private javax.swing.JButton btnPrev;
     private javax.swing.JButton btnReload;
     private javax.swing.JButton btnReset;
     private javax.swing.JButton btnSearch;
@@ -847,6 +998,7 @@ public class GradeGUI extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel12;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
@@ -855,6 +1007,7 @@ public class GradeGUI extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JComboBox<String> jcbType;
+    private javax.swing.JLabel lbPage;
     private javax.swing.JPanel pGrade;
     private javax.swing.JTable tbGrade;
     private javax.swing.JTextField txtCourseHelp;

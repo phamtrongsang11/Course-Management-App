@@ -136,7 +136,7 @@ public class PersonDAL extends MyDatabaseManager {
         ResultSet rs = p.executeQuery();
         if (rs != null) {
             while (rs.next()) {
-                Person student = new Person(rs.getInt("PersonID"), rs.getString("Lastname"), rs.getString("Firstname"), rs.getDate("EnrollmentDate"));
+                Person student = new Person(rs.getInt("PersonID"), rs.getString("Lastname"), rs.getString("Firstname"), rs.getDate("HireDate"));
                 teacherList.add(student);
             }
         }

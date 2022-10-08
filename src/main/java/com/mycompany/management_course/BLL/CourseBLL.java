@@ -1,4 +1,4 @@
-package com.mycompany.management_course.BUS;
+package com.mycompany.management_course.BLL;
 
 import com.mycompany.management_course.DAL.Course;
 import com.mycompany.management_course.DAL.CourseDAL;
@@ -11,12 +11,12 @@ import java.util.logging.Logger;
  *
  * @author phamt
  */
-public class CourseBUS {
+public class CourseBLL {
 
     private CourseDAL courseDAL = new CourseDAL();
     private static ArrayList<Course> courseList = new ArrayList<>();
 
-    public CourseBUS() {
+    public CourseBLL() {
 
     }
 

@@ -4,7 +4,7 @@
  */
 package com.mycompany.management_course.GUI;
 
-import com.mycompany.management_course.BUS.PersonBUS;
+import com.mycompany.management_course.BLL.PersonBLL;
 import com.mycompany.management_course.DAL.Person;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -21,7 +21,7 @@ public class StudentHelpGui extends javax.swing.JFrame {
 
     ArrayList<Person> studentList = new ArrayList<>();
     ;
-    PersonBUS perBUS = new PersonBUS();
+    PersonBLL perBUS = new PersonBLL();
     DefaultTableModel model;
     private GradeGUI previous;
 

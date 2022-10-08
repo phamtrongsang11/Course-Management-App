@@ -37,18 +37,14 @@ public class GUI extends javax.swing.JFrame {
         jSeparator5 = new javax.swing.JSeparator();
         jLabel17 = new javax.swing.JLabel();
         pGrade = new javax.swing.JPanel();
-        jLabel15 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
         pCourse = new javax.swing.JPanel();
-        jLabel13 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
         pPerson = new javax.swing.JPanel();
-        jLabel18 = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
         jLabel20 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         pAsign = new javax.swing.JPanel();
-        jLabel21 = new javax.swing.JLabel();
         jLabel22 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -77,6 +73,9 @@ public class GUI extends javax.swing.JFrame {
         pMenu3.setBackground(new java.awt.Color(0, 117, 217));
         pMenu3.setPreferredSize(new java.awt.Dimension(150, 700));
 
+        jSeparator5.setBackground(new java.awt.Color(255, 255, 255));
+        jSeparator5.setForeground(new java.awt.Color(255, 255, 255));
+
         pGrade.setBackground(new java.awt.Color(0, 90, 186));
         pGrade.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         pGrade.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -89,26 +88,7 @@ public class GUI extends javax.swing.JFrame {
         jLabel16.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel16.setForeground(new java.awt.Color(255, 255, 255));
         jLabel16.setText("Grade");
-
-        javax.swing.GroupLayout pGradeLayout = new javax.swing.GroupLayout(pGrade);
-        pGrade.setLayout(pGradeLayout);
-        pGradeLayout.setHorizontalGroup(
-            pGradeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pGradeLayout.createSequentialGroup()
-                .addGap(12, 12, 12)
-                .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel16)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        pGradeLayout.setVerticalGroup(
-            pGradeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel15, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
-            .addGroup(pGradeLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel16, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-        );
+        pGrade.add(jLabel16);
 
         pCourse.setBackground(new java.awt.Color(0, 90, 186));
         pCourse.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -121,27 +101,9 @@ public class GUI extends javax.swing.JFrame {
 
         jLabel14.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel14.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel14.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel14.setText("Course");
-
-        javax.swing.GroupLayout pCourseLayout = new javax.swing.GroupLayout(pCourse);
-        pCourse.setLayout(pCourseLayout);
-        pCourseLayout.setHorizontalGroup(
-            pCourseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pCourseLayout.createSequentialGroup()
-                .addGap(12, 12, 12)
-                .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel14)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        pCourseLayout.setVerticalGroup(
-            pCourseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel13, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
-            .addGroup(pCourseLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-        );
+        pCourse.add(jLabel14);
 
         pPerson.setBackground(new java.awt.Color(0, 90, 186));
         pPerson.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -155,26 +117,7 @@ public class GUI extends javax.swing.JFrame {
         jLabel19.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel19.setForeground(new java.awt.Color(255, 255, 255));
         jLabel19.setText("Teacher & Student");
-
-        javax.swing.GroupLayout pPersonLayout = new javax.swing.GroupLayout(pPerson);
-        pPerson.setLayout(pPersonLayout);
-        pPersonLayout.setHorizontalGroup(
-            pPersonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pPersonLayout.createSequentialGroup()
-                .addGap(12, 12, 12)
-                .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel19)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        pPersonLayout.setVerticalGroup(
-            pPersonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel18, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
-            .addGroup(pPersonLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel19, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-        );
+        pPerson.add(jLabel19);
 
         pAsign.setBackground(new java.awt.Color(0, 90, 186));
         pAsign.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -188,26 +131,7 @@ public class GUI extends javax.swing.JFrame {
         jLabel22.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel22.setForeground(new java.awt.Color(255, 255, 255));
         jLabel22.setText("Asign Course");
-
-        javax.swing.GroupLayout pAsignLayout = new javax.swing.GroupLayout(pAsign);
-        pAsign.setLayout(pAsignLayout);
-        pAsignLayout.setHorizontalGroup(
-            pAsignLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pAsignLayout.createSequentialGroup()
-                .addGap(12, 12, 12)
-                .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel22)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        pAsignLayout.setVerticalGroup(
-            pAsignLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel21, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
-            .addGroup(pAsignLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel22, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-        );
+        pAsign.add(jLabel22);
 
         javax.swing.GroupLayout pMenu3Layout = new javax.swing.GroupLayout(pMenu3);
         pMenu3.setLayout(pMenu3Layout);
@@ -224,7 +148,7 @@ public class GUI extends javax.swing.JFrame {
                     .addGroup(pMenu3Layout.createSequentialGroup()
                         .addGap(42, 42, 42)
                         .addComponent(jLabel1)))
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(0, 40, Short.MAX_VALUE))
             .addComponent(pGrade, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(pMenu3Layout.createSequentialGroup()
                 .addGap(46, 46, 46)
@@ -320,7 +244,14 @@ public class GUI extends javax.swing.JFrame {
     }//GEN-LAST:event_pGradeMouseClicked
 
     private void pAsignMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pAsignMouseClicked
-        // TODO add your handling code here:
+        pMain.removeAll();
+        pMain.repaint();
+        pMain.validate();
+        CourseIntructorGUI asignGUI = new CourseIntructorGUI();
+        javax.swing.JPanel asignPane = asignGUI.getPanel();
+        pMain.add(asignPane);
+        pMain.repaint();
+        pMain.validate();
     }//GEN-LAST:event_pAsignMouseClicked
 
     /**
@@ -368,15 +299,11 @@ public class GUI extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
-    private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel20;
-    private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JSeparator jSeparator5;

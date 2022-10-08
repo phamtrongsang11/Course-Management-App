@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.mycompany.management_course.BUS;
+package com.mycompany.management_course.BLL;
 
 import com.mycompany.management_course.DAL.StudentGrade;
 import com.mycompany.management_course.DAL.Person;
@@ -17,11 +17,11 @@ import java.util.logging.Logger;
  *
  * @author huynh
  */
-public class StudentGradeBus {
+public class StudentGradeBLL {
 
     private StudentGradeDAL studengradeDAL = new StudentGradeDAL();
-    private CourseBUS courseBUS = new CourseBUS();
-    private PersonBUS personBUS = new PersonBUS();
+    private CourseBLL courseBUS = new CourseBLL();
+    private PersonBLL personBUS = new PersonBLL();
     private ArrayList<StudentGrade> gradeList = new ArrayList<>();
 
     public ArrayList<StudentGrade> readStudentGrade() throws SQLException {
@@ -84,6 +84,16 @@ public class StudentGradeBus {
             }
         }
         return result;
+    }
+    
+    public ArrayList<StudentGrade> ReadOnsiteByNumPage(ArrayList<StudentGrade> onsList, int page, int numRecord){
+
+        //onsList = this.readAllOnsiteCourse();
+        int startRecord = (page - 1) * numRecord;
+        int endRecord = page * numRecord;
+
+        return new ArrayList<StudentGrade>(onsList.subList(startRecord, Math.min(endRecord, onsList.size())));
+
     }
 
 }

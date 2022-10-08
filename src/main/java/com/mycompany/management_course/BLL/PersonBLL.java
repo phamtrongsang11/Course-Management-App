@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.mycompany.management_course.BUS;
+package com.mycompany.management_course.BLL;
 
 import com.mycompany.management_course.DAL.Person;
 import com.mycompany.management_course.DAL.PersonDAL;
@@ -14,7 +14,7 @@ import javax.swing.JOptionPane;
  *
  * @author ACER
  */
-public class PersonBUS {
+public class PersonBLL {
 
     PersonDAL personDAL = new PersonDAL();
     ArrayList<Person> personList = new ArrayList<>();
@@ -32,22 +32,22 @@ public class PersonBUS {
     }
 
     public int insertStudent(Person Student) throws SQLException {
-        JOptionPane.showMessageDialog(null, "Insert complete.");
+
         return personDAL.insertStudent(Student);
     }
 
     public int insertTeacher(Person Teacher) throws SQLException {
-        JOptionPane.showMessageDialog(null, "Insert complete.");
+
         return personDAL.insertTeacher(Teacher);
     }
 
     public int updatePerson(Person Person) throws SQLException {
-        JOptionPane.showMessageDialog(null, "Update complete.");
+
         return personDAL.updatePerson(Person);
     }
 
     public int deleteStudent(int id) throws SQLException {
-        JOptionPane.showMessageDialog(null, "Delete complete.");
+
         return personDAL.deleteStudent(id);
     }
 
@@ -57,5 +57,19 @@ public class PersonBUS {
 
     public ArrayList<Person> findTeacher(String name) throws SQLException {
         return personDAL.findTeacher(name);
+    }
+
+    public ArrayList<Person> loadStudent(int page) throws SQLException {
+        personList = this.readStudent();
+        int startRecord = (page - 1) * 5;
+        int endRecord = page * 5;
+        return new ArrayList<Person>(personList.subList(startRecord, Math.min(endRecord, personList.size())));
+    }
+
+    public ArrayList<Person> loadTeacher(int page) throws SQLException {
+        personList = this.readTeacher();
+        int startRecord = (page - 1) * 5;
+        int endRecord = page * 5;
+        return new ArrayList<Person>(personList.subList(startRecord, Math.min(endRecord, personList.size())));
     }
 }

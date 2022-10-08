@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.mycompany.management_course.BUS;
+package com.mycompany.management_course.BLL;
 
 import com.mycompany.management_course.DAL.Department;
 import com.mycompany.management_course.DAL.DepartmentDAL;
@@ -15,7 +15,7 @@ import java.util.logging.Logger;
  *
  * @author phamt
  */
-public class DepartmentBUS {
+public class DepartmentBLL {
     private DepartmentDAL depDAL = new DepartmentDAL();
     private static ArrayList<Department> depList = new ArrayList<Department>();
     
@@ -23,7 +23,7 @@ public class DepartmentBUS {
         try {
             depList = depDAL.readDepartment();
         } catch (SQLException ex) {
-            Logger.getLogger(DepartmentBUS.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DepartmentBLL.class.getName()).log(Level.SEVERE, null, ex);
         }
         return depList;
     }
@@ -33,7 +33,7 @@ public class DepartmentBUS {
         try {
             de = depDAL.readDepartmentByID(id);
         } catch (SQLException ex) {
-            Logger.getLogger(DepartmentBUS.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DepartmentBLL.class.getName()).log(Level.SEVERE, null, ex);
         }
         return de;
     }

@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.mycompany.management_course.BUS;
+package com.mycompany.management_course.BLL;
 
 import com.mycompany.management_course.DAL.Course;
 import com.mycompany.management_course.DAL.OnsiteCourse;
@@ -16,15 +16,15 @@ import java.util.logging.Logger;
  *
  * @author phamt
  */
-public class OnsiteBUS {
+public class OnsiteBLL {
 
     private ArrayList<OnsiteCourse> onsList = new ArrayList<>();
     private OnsiteDAL onsDAL = new OnsiteDAL();
 
-    public OnsiteBUS(){
-        
+    public OnsiteBLL() {
+
     }
-    
+
     /*
     public OnsiteCourse readOnsiteCourseByID(int id){
         OnsiteCourse ons = null;
@@ -54,7 +54,7 @@ public class OnsiteBUS {
     public int deleteOnsite(int id) throws SQLException {
         return onsDAL.deleteOnsite(id);
     }
-    
+
     public ArrayList<OnsiteCourse> findOnsite(String title) throws SQLException {
         //onsList = this.readAllOnsiteCourse();
         ArrayList<OnsiteCourse> result = new ArrayList<>();
@@ -67,17 +67,20 @@ public class OnsiteBUS {
         return result;
 
     }
-    
-    public int getSizeList(){
+
+    public int getSizeList() {
         return onsList.size();
     }
     
-     public ArrayList<OnsiteCourse> ReadOnsiteByNumPage(int page, int numRecord) throws SQLException {
-       
-        onsList = this.readAllOnsiteCourse();
+    public ArrayList<OnsiteCourse> getOnsiteList(){
+        return this.onsList;
+    }
+
+    public ArrayList<OnsiteCourse> ReadOnsiteByNumPage(ArrayList<OnsiteCourse> onsList, int page, int numRecord) throws SQLException {
+
+        //onsList = this.readAllOnsiteCourse();
         int startRecord = (page - 1) * numRecord;
         int endRecord = page * numRecord;
-        
 
         return new ArrayList<OnsiteCourse>(onsList.subList(startRecord, Math.min(endRecord, onsList.size())));
 

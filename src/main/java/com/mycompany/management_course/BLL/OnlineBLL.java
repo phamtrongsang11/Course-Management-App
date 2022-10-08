@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.mycompany.management_course.BUS;
+package com.mycompany.management_course.BLL;
 
 import com.mycompany.management_course.DAL.Course;
 import com.mycompany.management_course.DAL.OnlineCourse;
@@ -16,12 +16,12 @@ import java.util.logging.Logger;
  *
  * @author phamt
  */
-public class OnlineBUS {
+public class OnlineBLL {
 
     private ArrayList<OnlineCourse> onlList = new ArrayList<>();
     private OnlineDAL onlDAL = new OnlineDAL();
 
-    public OnlineBUS() {
+    public OnlineBLL() {
 
     }
 
@@ -56,6 +56,9 @@ public class OnlineBUS {
     public int getSizeList(){
         return onlList.size();
     }
+    public ArrayList<OnlineCourse> getOnlList(){
+        return this.onlList;
+    }
 
     public ArrayList<OnlineCourse> findOnline(String title) throws SQLException {
         //onlList = this.readAllOnlineCourse();
@@ -70,9 +73,9 @@ public class OnlineBUS {
 
     }
 
-    public ArrayList<OnlineCourse> ReadOnlineByNumPage(int page, int numRecord) throws SQLException {
+    public ArrayList<OnlineCourse> ReadOnlineByNumPage(ArrayList<OnlineCourse> onlList,int page, int numRecord) throws SQLException {
        
-        onlList = this.readAllOnlineCourse();
+        //onlList = this.readAllOnlineCourse();
         int startRecord = (page - 1) * numRecord;
         int endRecord = page * numRecord;
 
